@@ -1,0 +1,103 @@
+<app-nav></app-nav>
+<div class="container-fluid">
+    <nav id="sidebar" class="">
+        <h1><a class="logo">Administrador</a></h1>
+        <ul class="list-unstyled components mb-5">
+            <li>
+                <a [routerLink]="['/registerRoomAdmin']"><span class="fa fa-home mr-3"></span> Registrar Ambiente</a>
+            </li>
+            <li>
+                <a [routerLink]="['/consultRoomAdmin']"><span class="fa fa-search fa-fw"></span> Consultar Ambiente</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="box-info" style="margin-top: -2%;">
+        <h1>Gestión de registro ambientes</h1><br>
+        <hr>
+        <a>En el módulo de gestión de registro de ambientes puede registrar la información de los ambientes con su
+            respectivo inventario.</a><br><br><br>
+    </div><br><br><br>
+    <form [formGroup]="formAmbiente" class="boxx was-validated">
+        <h3 class="H2">Registrar Ambientes</h3><br>
+        <div class="box-form">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="nameAmbient">Nombre Ambiente</label>
+                    <input formControlName="nombreAmbiente" required type="text" class="form-control" id="nameAmbient" placeholder="Ej: Enfermeria">
+                </div><br>
+                <div class="col-sm-4">
+                    <label for="numeroAmbient">Numero Ambiente</label>
+                    <input formControlName="numeroAmbiente" required type="text" class="form-control" id="numberAmbient" placeholder="Ej: 12">
+                </div>
+            </div>
+            <br>
+        </div>
+        <h3 class="H2">Inventario Ambientes</h3><br>
+        <form [formGroup]="formulario" class=" was-validated" (ngSubmit)="addToArticle()">
+            <div class="box-form">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="input">Nombre</label>
+                        <input formControlName="articulo" type="text" id="name" class="form-control " placeholder="Ej: Computador" />
+                    </div><br>
+                    <div class="col-sm-4">
+                        <label>Cantidad</label>
+                        <input formControlName="cantidad" type="text" id="quantity" class="form-control " placeholder="Ej: 12" />
+                    </div>
+                    <button type="submit" class="btn   btn-outline-primary col-sm-4">+Añadir</button>
+
+                </div>
+            </div>
+        </form>
+        <br>
+        <div class="box-form">
+            <div class="row">
+                <div class="col-sm-6" *ngIf="listArticle.length>0">
+                    <table class="table-striped tabled-bordered" style="margin-left:20%">
+                        <thead>
+                            <tr>
+                                <th>Articulo</th>
+                                <th>Cantidad</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listArticle; let i = index">
+                                <td>
+                                    {{item.nombre}}
+                                </td>
+                                <td>
+                                    {{item.cantidad}}
+                                </td>
+                                <td>
+                                    <button type="button" name="eliminar" (click)="deleteInventario(i)" class="btn  btn-outline-danger">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="box-form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="">
+                        <h3 class="H3">Estado del ambiente</h3>
+                        <div class="form-check form-check">
+                            <input formControlName="estado" class="form-check-input" type="radio" name="estado" id="inlineRadio1" value="A">
+                            <label class="form-check-label" for="inlineRadio1">Ambiente activo</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input formControlName="estado" class="form-check-input" type="radio" name="estado" id="inlineRadio2" value="I">
+                            <label class="form-check-label" for="inlineRadio2">Desactivar para préstamo</label>
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-outline-primary col-sm-4" (click)="registroInventario()">Registrar</button><br>
+                    </div><br>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<app-footer></app-footer>
